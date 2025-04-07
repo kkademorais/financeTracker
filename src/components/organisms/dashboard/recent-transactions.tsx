@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowDown, ArrowUp, ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowRight, PlusCircle } from "lucide-react";
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/atoms/ui/card";
+import { Button } from "@/components/atoms/ui/button";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { useFetchTransactions } from "@/hooks/use-fetch-transactions";
 import { Transaction } from "@/types";
@@ -11,14 +12,44 @@ import { Transaction } from "@/types";
 interface RecentTransactionsProps {
   isLoading?: boolean;
   limit?: number;
+  onAddTransaction?: () => void;
 }
 
-export function RecentTransactions({ isLoading = false, limit = 5 }: RecentTransactionsProps) {
+export function RecentTransactions({ 
+  isLoading = false, 
+  limit = 5,
+  onAddTransaction 
+}: RecentTransactionsProps) {
   const { data: transactions, isLoading: isLoadingTransactions } = useFetchTransactions({
     limit,
   });
 
   const isDataLoading = isLoading || isLoadingTransactions;
+
+  const handleAddTransactionClick = () => {
+    if (onAddTransaction) {
+      onAddTransaction();
+    }
+  };
+
+  const NoTransactionsMessage = () => (
+    <div className="flex flex-col items-center justify-center py-8 space-y-3">
+      <p className="text-muted-foreground text-center">
+        Nenhuma transação encontrada.
+      </p>
+      {onAddTransaction && (
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="flex items-center gap-1"
+          onClick={handleAddTransactionClick}
+        >
+          <PlusCircle className="h-4 w-4" />
+          Adicionar transação
+        </Button>
+      )}
+    </div>
+  );
 
   return (
     <Card>
@@ -41,9 +72,7 @@ export function RecentTransactions({ isLoading = false, limit = 5 }: RecentTrans
             </div>
           ))
         ) : transactions.length === 0 ? (
-          <div className="text-center py-8 text-muted-foreground">
-            No transactions found.
-          </div>
+          <NoTransactionsMessage />
         ) : (
           <>
             {transactions.map((transaction) => (

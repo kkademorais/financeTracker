@@ -1,89 +1,189 @@
 # Finance Tracker
 
-Um aplicativo completo de rastreamento financeiro construído com tecnologias modernas para ajudar na gestão e visualização das suas finanças pessoais.
+Uma aplicação moderna para gerenciamento financeiro pessoal que permite rastrear despesas e receitas, visualizar estatísticas em tempo real e obter insights sobre seus hábitos financeiros.
 
-## Tecnologias Utilizadas
+![Dashboard Principal](prints/dashboard5.png)
 
-- **Frontend**: Next.js 14 com App Router, Tailwind CSS, React-Hook-Form, Zod, SWR
-- **Backend**: Next.js API Routes com middlewares de segurança
-- **Banco de Dados**: PostgreSQL com Prisma como ORM
-- **Autenticação**: NextAuth.js com provedores de e-mail/senha e OAuth
+## 🌟 Funcionalidades
 
-## Funcionalidades
+- **Dashboard Interativo**: Visualize suas finanças com gráficos intuitivos e estatísticas em tempo real
+- **Registro de Transações**: Adicione receitas e despesas com categorização detalhada
+- **Análise de Gastos por Categoria**: Veja onde seu dinheiro está sendo gasto com gráficos detalhados
+- **Histórico Mensal**: Acompanhe sua evolução financeira ao longo do tempo
+- **Design Responsivo**: Acesse suas finanças de qualquer dispositivo
+- **Autenticação Segura**: Proteção de dados com Next Auth
+- **Experiência de Onboarding**: Tutorial interativo para novos usuários
+- **Notificações Toast**: Feedback instantâneo sobre ações realizadas
+- **Tema Claro/Escuro**: Interface adaptável à sua preferência visual
 
-- Homepage com resumo visual dos gastos recentes
-- Calendário interativo para visualização de gastos por período
-- Sistema de extrato com filtros avançados e visualização em gráficos
-- Formulário otimizado para inserção rápida de gastos com categorização
-- Dashboard de análise comparativa entre períodos diferentes
-- Perfil e configurações do usuário
-- Sistema de temas (claro/escuro)
-- Design responsivo
+## 📸 Screenshots
 
-## Estrutura do Projeto
+### Dashboard e Análises
 
-O projeto segue uma estrutura organizada por features/módulos e utiliza o padrão de design atômico para componentes:
+![Dashboard com Transações](prints/dashboard4.png)
+*Dashboard com visão geral das finanças, mostrando gastos por categoria e histórico mensal*
 
-- `/src/app`: Rotas e páginas da aplicação (Next.js App Router)
-- `/src/components`: Componentes React organizados seguindo o padrão de design atômico
-  - `/atoms`: Componentes básicos (botões, inputs, etc.)
-  - `/molecules`: Combinação de componentes atômicos
-  - `/organisms`: Componentes mais complexos como seções de páginas
-  - `/templates`: Layouts de página completos
-- `/src/hooks`: Hooks React personalizados
-- `/src/lib`: Bibliotecas e utilitários
-- `/src/services`: Serviços para comunicação com APIs
-- `/src/contexts`: Contextos React para gerenciamento de estado global
-- `/src/types`: Tipos TypeScript
-- `/src/middleware`: Middlewares para API Routes
-- `/src/styles`: Estilos globais
-- `/prisma`: Configuração e schema do Prisma
+### Adicionar Transações
 
-## Requisitos
+![Adicionar Transação](prints/addTransaction.png)
+*Interface intuitiva para adicionar novas transações com categorização*
 
-- Node.js 18+
-- PostgreSQL 13+
+### Experiência de Primeiro Acesso
 
-## Instalação
+![Primeiro Acesso](prints/primeiroAcesso.png)
+*Tela de boas-vindas para novos usuários*
 
-1. Clone o repositório
-```bash
-git clone https://github.com/seu-usuario/finance-tracker.git
-cd finance-tracker
+![Etapas Iniciais](prints/primeiroAcesso2.png)
+*Guia de recursos disponíveis para novos usuários*
+
+![Dicas Financeiras](prints/primeiroAcesso3.png)
+*Dicas para melhor gerenciamento financeiro*
+
+### Fluxo de Onboarding
+
+![Onboarding - Passo 1](prints/onboarding.png)
+![Onboarding - Passo 2](prints/onboarding2.png)
+![Onboarding - Passo 3](prints/onboarding3.png)
+*Sequência de onboarding que guia o usuário pelos primeiros passos*
+
+## 💡 Diferencial
+
+O Finance Tracker se destaca por sua experiência de usuário intuitiva e interface moderna. Diferente de outras ferramentas financeiras que podem ser complexas ou básicas demais, nosso aplicativo encontra o equilíbrio perfeito entre funcionalidade e simplicidade.
+
+Focamos em criar uma experiência agradável para novos usuários, com mensagens claras quando não há dados e um sistema de onboarding que facilita os primeiros passos.
+
+## 🚀 Objetivo
+
+Ajudar pessoas a tomarem controle de suas finanças pessoais de forma simples e eficiente, fornecendo insights valiosos sobre padrões de gastos e economias, sem a complexidade de ferramentas financeiras tradicionais.
+
+## 📋 Tecnologias Utilizadas
+
+- **Next.js**: Framework React para renderização no servidor
+- **TypeScript**: Tipagem estática para código mais seguro
+- **Tailwind CSS**: Framework CSS utilitário para design rápido
+- **Prisma**: ORM para interação com banco de dados
+- **NextAuth.js**: Autenticação simplificada
+- **Chart.js & Recharts**: Visualização de dados
+- **ShadcnUI**: Componentes de UI com acessibilidade
+- **React Hook Form**: Gerenciamento de formulários
+- **Zod**: Validação de dados
+
+## 🛠️ Como Executar Localmente
+
+Siga estas etapas para configurar o projeto em sua máquina local:
+
+### Pré-requisitos
+
+- Node.js (versão 16 ou superior)
+- npm ou yarn
+- Git
+
+### Passo a Passo para Iniciantes
+
+1. **Clone o repositório**
+
+   Abra o terminal (CMD no Windows) e execute:
+
+   ```bash
+   git clone https://github.com/seu-usuario/finance-tracker.git
+   cd finance-tracker
+   ```
+
+2. **Instale as dependências**
+
+   Execute:
+
+   ```bash
+   npm install
+   ```
+
+   Ou se preferir usar yarn:
+
+   ```bash
+   yarn
+   ```
+
+3. **Configure as variáveis de ambiente**
+
+   Crie um arquivo `.env.local` na raiz do projeto e adicione:
+
+   ```
+   DATABASE_URL="postgresql://username:password@localhost:5432/financetracker"
+   NEXTAUTH_SECRET="seu-segredo-aqui"
+   NEXTAUTH_URL="http://localhost:3000"
+   ```
+
+   Substitua os valores conforme necessário para seu ambiente.
+
+4. **Configure o banco de dados**
+
+   Execute:
+
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+   Isso irá inicializar o banco de dados com as tabelas necessárias.
+
+5. **Execute a aplicação em modo de desenvolvimento**
+
+   ```bash
+   npm run dev
+   ```
+
+   Ou com yarn:
+
+   ```bash
+   yarn dev
+   ```
+
+6. **Acesse a aplicação**
+
+   Abra o navegador e acesse: [http://localhost:3000](http://localhost:3000)
+
+7. **Registre uma conta**
+
+   Clique em "Sign Up" e crie uma conta para começar a usar.
+
+### Solução de Problemas Comuns
+
+- **Erro ao conectar com o banco de dados**: Verifique se o valor da DATABASE_URL está correto e se o serviço de banco de dados está em execução.
+- **Tela em branco após login**: Limpe o cache do browser ou execute `npm run build && npm start` para gerar uma nova versão de produção.
+- **Dependências quebradas**: Execute `npm install` novamente para atualizar as dependências.
+- **Erro no carregamento de componentes**: Verifique se todas as dependências do Shadcn UI foram instaladas com `npx shadcn-ui@latest add [nome-do-componente]`.
+
+## 📊 Estrutura do Projeto
+
+```
+finance-tracker/
+├── prisma/               # Configurações do Prisma e esquema do banco de dados
+├── public/               # Arquivos estáticos
+├── src/
+│   ├── app/              # Rotas da aplicação (App Router do Next.js 13+)
+│   ├── components/       # Componentes React
+│   │   ├── atoms/        # Componentes básicos de UI
+│   │   ├── molecules/    # Componentes compostos por atoms
+│   │   ├── organisms/    # Componentes maiores (ex: gráficos, forms)
+│   │   └── templates/    # Layouts de página
+│   ├── context/          # Contextos globais do React
+│   ├── hooks/            # Hooks customizados
+│   ├── lib/              # Funções utilitárias e configurações
+│   ├── styles/           # Estilos globais
+│   └── types/            # Definições de tipos TypeScript
+├── .env.example          # Exemplo de variáveis de ambiente
+├── next.config.js        # Configuração do Next.js
+└── package.json          # Dependências e scripts
 ```
 
-2. Instale as dependências
-```bash
-npm install
-```
+## 🤝 Contribuindo
 
-3. Configure as variáveis de ambiente
-```bash
-cp .env.example .env.local
-```
-Edite o arquivo `.env.local` com suas configurações
+Contribuições são bem-vindas! Por favor, sinta-se à vontade para enviar um Pull Request.
 
-4. Configure o banco de dados
-```bash
-npx prisma migrate dev
-```
+## 📜 Licença
 
-5. Inicie o servidor de desenvolvimento
-```bash
-npm run dev
-```
+Este projeto está licenciado sob a licença MIT - veja o arquivo LICENSE para mais detalhes.
 
-6. Acesse o aplicativo em [http://localhost:3000](http://localhost:3000)
+---
 
-## Recursos Técnicos
-
-- Sistema de cache otimizado para dados financeiros com SWR
-- Validação rigorosa dos dados no cliente e servidor com Zod
-- Proteção de rotas baseada em autenticação
-- Medidas de segurança para proteção de dados financeiros
-- Code splitting e lazy loading para otimização de performance
-- Design system consistente com componentes reutilizáveis
-
-## Licença
-
-Este projeto está licenciado sob a licença MIT. 
+Desenvolvido com ❤️ para ajudar pessoas a conquistarem seu controle financeiro.

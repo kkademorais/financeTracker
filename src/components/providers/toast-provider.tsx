@@ -1,7 +1,11 @@
 "use client";
 
-import { Toaster } from "@/components/atoms/ui/toaster";
+import React from 'react';
 
-export function ToastProvider() {
-  return <Toaster />;
+export function ToastProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      {children}
+    </>
+  );
 } 

@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create the user
+    // Create the user with empty transactions
     const user = await prisma.user.create({
       data: {
         name,
@@ -51,6 +51,20 @@ export async function POST(req: Request) {
             currency: "USD",
             notificationsEnabled: true,
           },
+        },
+        categories: {
+          createMany: {
+            data: [
+              { name: "Food", color: "#4CAF50", icon: "utensils" },
+              { name: "Transportation", color: "#2196F3", icon: "car" },
+              { name: "Entertainment", color: "#E91E63", icon: "film" },
+              { name: "Utilities", color: "#673AB7", icon: "bolt" },
+              { name: "Housing", color: "#FF5722", icon: "home" },
+              { name: "Health", color: "#00BCD4", icon: "heart" },
+              { name: "Education", color: "#9C27B0", icon: "book" },
+              { name: "Other", color: "#607D8B", icon: "folder" },
+            ]
+          }
         },
       },
       select: {
@@ -65,6 +79,7 @@ export async function POST(req: Request) {
       {
         user,
         message: "User registered successfully",
+        isNewUser: true,
       },
       { status: 201 }
     );

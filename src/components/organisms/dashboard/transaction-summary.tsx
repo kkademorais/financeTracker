@@ -1,17 +1,19 @@
 "use client";
 
 import { useMemo } from "react";
-import { ArrowDown, ArrowUp, DollarSign, PiggyBank } from "lucide-react";
+import { ArrowDown, ArrowUp, DollarSign, PiggyBank, PlusCircle } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/atoms/ui/card";
+import { Button } from "@/components/atoms/ui/button";
 import { formatCurrency } from "@/lib/utils";
 import { useFetchTransactions } from "@/hooks/use-fetch-transactions";
 
 interface TransactionSummaryProps {
   isLoading?: boolean;
+  onAddTransaction?: () => void;
 }
 
-export function TransactionSummary({ isLoading = false }: TransactionSummaryProps) {
+export function TransactionSummary({ isLoading = false, onAddTransaction }: TransactionSummaryProps) {
   const { data: transactions, isLoading: isLoadingTransactions } = useFetchTransactions();
 
   const summary = useMemo(() => {
@@ -21,6 +23,7 @@ export function TransactionSummary({ isLoading = false }: TransactionSummaryProp
         totalExpense: 0,
         balance: 0,
         savings: 0,
+        hasTransactions: false
       };
     }
 
@@ -40,10 +43,35 @@ export function TransactionSummary({ isLoading = false }: TransactionSummaryProp
       totalExpense: expense,
       balance,
       savings,
+      hasTransactions: true
     };
   }, [transactions]);
 
   const isDataLoading = isLoading || isLoadingTransactions;
+  const noTransactions = !isDataLoading && !summary.hasTransactions;
+
+  const handleAddTransactionClick = () => {
+    if (onAddTransaction) {
+      onAddTransaction();
+    }
+  };
+
+  const EmptyMessage = () => (
+    <div className="flex flex-col items-center justify-center space-y-2 py-2">
+      <p className="text-sm text-muted-foreground">Sem transações</p>
+      {onAddTransaction && (
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className="text-xs flex items-center gap-1"
+          onClick={handleAddTransactionClick}
+        >
+          <PlusCircle className="h-3 w-3" />
+          Adicionar
+        </Button>
+      )}
+    </div>
+  );
 
   return (
     <>
@@ -58,6 +86,8 @@ export function TransactionSummary({ isLoading = false }: TransactionSummaryProp
             <div className="text-2xl font-bold text-green-800 dark:text-green-300">
               {isDataLoading ? (
                 <div className="h-8 w-24 animate-pulse rounded bg-green-200 dark:bg-green-700/20"></div>
+              ) : noTransactions ? (
+                <EmptyMessage />
               ) : (
                 formatCurrency(summary.totalIncome)
               )}
@@ -80,6 +110,8 @@ export function TransactionSummary({ isLoading = false }: TransactionSummaryProp
             <div className="text-2xl font-bold text-red-800 dark:text-red-300">
               {isDataLoading ? (
                 <div className="h-8 w-24 animate-pulse rounded bg-red-200 dark:bg-red-700/20"></div>
+              ) : noTransactions ? (
+                <EmptyMessage />
               ) : (
                 formatCurrency(summary.totalExpense)
               )}
@@ -102,6 +134,8 @@ export function TransactionSummary({ isLoading = false }: TransactionSummaryProp
             <div className="text-2xl font-bold text-blue-800 dark:text-blue-300">
               {isDataLoading ? (
                 <div className="h-8 w-24 animate-pulse rounded bg-blue-200 dark:bg-blue-700/20"></div>
+              ) : noTransactions ? (
+                <EmptyMessage />
               ) : (
                 formatCurrency(summary.balance)
               )}
@@ -124,6 +158,8 @@ export function TransactionSummary({ isLoading = false }: TransactionSummaryProp
             <div className="text-2xl font-bold text-purple-800 dark:text-purple-300">
               {isDataLoading ? (
                 <div className="h-8 w-24 animate-pulse rounded bg-purple-200 dark:bg-purple-700/20"></div>
+              ) : noTransactions ? (
+                <EmptyMessage />
               ) : (
                 `${summary.savings}%`
               )}

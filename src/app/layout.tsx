@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { AuthProvider } from "@/components/providers/auth-provider";
 import { ToastProvider } from "@/components/providers/toast-provider";
+import { TransactionProvider } from "@/context/transaction-context";
+import { Toaster } from "@/components/atoms/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,9 +25,12 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <ToastProvider>
-              {children}
-            </ToastProvider>
+            <TransactionProvider>
+              <ToastProvider>
+                {children}
+              </ToastProvider>
+              <Toaster />
+            </TransactionProvider>
           </ThemeProvider>
         </AuthProvider>
       </body>
