@@ -85,7 +85,7 @@ Siga estas etapas para configurar o projeto em sua máquina local:
    Abra o terminal (CMD no Windows) e execute:
 
    ```bash
-   git clone https://github.com/seu-usuario/finance-tracker.git
+   git clone https://github.com/kkademorais/finance-tracker.git
    cd finance-tracker
    ```
 
